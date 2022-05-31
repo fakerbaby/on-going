@@ -1,0 +1,7 @@
+scipy
+transformers
+dataclasses
+pytorch
+numpy
+sklearn
+wandb
