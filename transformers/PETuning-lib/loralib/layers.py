@@ -169,6 +169,3 @@ class SparseLoRA(nn.Linear, LoRALayer):
             return F.linear(x, T(self.weight), bias=self.bias)
         
 
-class LocalAttention(nn.Linear, LoRALayer):
-    def __init__(self):
-        
