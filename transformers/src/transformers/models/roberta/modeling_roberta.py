@@ -176,7 +176,12 @@ class RobertaSelfAttention(nn.Module):
         else:
             self.value = nn.Linear(config.hidden_size, self.all_head_size)
             self.query = nn.Linear(config.hidden_size, self.all_head_size)
+        
+        #LoRA 2.0
+        if 1:
+            
         # self.query = nn.Linear(config.hidden_size, self.all_head_size)
+
         self.key = nn.Linear(config.hidden_size, self.all_head_size)
         # self.value = nn.Linear(config.hidden_size, self.all_head_size)
 

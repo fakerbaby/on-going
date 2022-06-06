@@ -44,7 +44,7 @@ from transformers import (
 from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version
 from transformers.utils.versions import require_version
-
+import torch
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
 check_min_version("4.4.0.dev0")
@@ -400,6 +400,13 @@ def main():
                         break
             else:
                 param.requires_grad = True
+
+    # nosiytune
+    noise_lambda = 0.15
+    for name, para in model.named_parameters ():
+        model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
+    
+    
 
     # Preprocessing the raw_datasets
     if data_args.task_name is not None:
