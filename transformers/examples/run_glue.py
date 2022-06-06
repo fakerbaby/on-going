@@ -401,10 +401,10 @@ def main():
             else:
                 param.requires_grad = True
 
-    # nosiytune
-    noise_lambda = 0.15
-    for name, para in model.named_parameters ():
-        model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
+    # # nosiytune
+    # noise_lambda = 0.15
+    # for name, para in model.named_parameters ():
+    #     model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
     
     
 
