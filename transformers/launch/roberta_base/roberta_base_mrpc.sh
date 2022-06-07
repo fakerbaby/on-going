@@ -1,6 +1,6 @@
 #! /bin/bash
 # export num_gpus=2
-export CUDA_VISIBLE_DEVICES=3
+export CUDA_VISIBLE_DEVICES=5
 export CUBLAS_WORKSPACE_CONFIG=":16:8" # https://docs.nvidia.com/cuda/cublas/index.html#cublasApi_reproducibility
 export PYTHONHASHSEED=0
 
@@ -112,7 +112,6 @@ python -u \
 --save_total_limit ${save_total_limit} \
     2>&1 | tee ${SAVE}/log.txt 
 
-
-# --apply_lora \
-# --lora_r ${lora_r} \
-# --lora_alpha ${lora_alpha} \
+--apply_lora \
+--lora_r ${lora_r} \
+--lora_alpha ${lora_alpha} \

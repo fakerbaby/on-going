@@ -177,14 +177,8 @@ class RobertaSelfAttention(nn.Module):
             self.value = nn.Linear(config.hidden_size, self.all_head_size)
             self.query = nn.Linear(config.hidden_size, self.all_head_size)
         
-        #LoRA 2.0
-        if 1:
-            
-        # self.query = nn.Linear(config.hidden_size, self.all_head_size)
-
+  
         self.key = nn.Linear(config.hidden_size, self.all_head_size)
-        # self.value = nn.Linear(config.hidden_size, self.all_head_size)
-
         self.dropout = nn.Dropout(config.attention_probs_dropout_prob)
         self.position_embedding_type = position_embedding_type or getattr(
             config, "position_embedding_type", "absolute"

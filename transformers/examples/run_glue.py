@@ -378,9 +378,10 @@ def main():
         revision=model_args.model_revision,
         use_auth_token=True if model_args.use_auth_token else None,
     )
-    """Adaptive model 
     """
-    #trainable params
+    Adaptive model 
+    """
+    # trainable params
     trainable_params = []
     if model_args.apply_lora:
         if model_args.lora_path is not None:
@@ -396,17 +397,18 @@ def main():
                 param.requires_grad = False
                 for trainable_param in trainable_params:
                     if trainable_param in name:
+                        # noisytune in LoRA
+                        # noise_lambda = 0.2  
+                        # model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(param)
                         param.requires_grad = True
                         break
             else:
                 param.requires_grad = True
 
-    # nosiytune
-    noise_lambda = 0.15
-    for name, para in model.named_parameters ():
-        model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
-    
-    
+    # # nosiytune
+    # noise_lambda = 0.1
+    # for name, para in model.named_parameters ():
+    #     model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
 
     # Preprocessing the raw_datasets
     if data_args.task_name is not None:
