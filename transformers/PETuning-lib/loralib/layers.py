@@ -37,7 +37,7 @@ class Linear(nn.Linear, LoRALayer):
         out_features: int, 
         r: int = 0, 
         lora_alpha: int = 1, 
-        lora_dropout: float = 0.2,
+        lora_dropout: float = 0.,
         fan_in_fan_out: bool = False, # Set this to True if the layer to replace stores weight like (fan_in, fan_out)
         merge_weights: bool = True,
         **kwargs

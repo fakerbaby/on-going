@@ -22,7 +22,7 @@ max_seq_length=512
 
 lr_scheduler_type="linear"
 
-learning_rate=3e-5
+learning_rate=4e-4
 weight_decay=0.1
 warmup_ratio=0.06
 
@@ -58,7 +58,7 @@ eval_strategy="epoch"
 #     debug_str=".debug"
 # fi
 
-exp_name=roberta_base
+exp_name=roberta_base_LoRA
 exp_name+=.ne${num_train_epochs}
 exp_name+=.warm${warmup_ratio}.wd${weight_decay}.seed${seed}.${debug_str}
 SAVE=../../checkpoints/glue/${TASK_NAME}/${DATE}/${exp_name}
@@ -109,9 +109,9 @@ python -u \
 --overwrite_output_dir  \
 --load_best_model_at_end "yes" \
 --fp16 \
---save_total_limit ${save_total_limit} \
-    2>&1 | tee ${SAVE}/log.txt 
-
 --apply_lora \
 --lora_r ${lora_r} \
 --lora_alpha ${lora_alpha} \
+--save_total_limit ${save_total_limit} \
+    2>&1 | tee ${SAVE}/log.txt 
+

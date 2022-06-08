@@ -5,3 +5,4 @@ pytorch
 numpy
 sklearn
 wandb
+datasets>=1.8.0
