@@ -168,8 +168,7 @@ class RobertaSelfAttention(nn.Module):
         self.num_attention_heads = config.num_attention_heads
         self.attention_head_size = int(config.hidden_size / config.num_attention_heads)
         self.all_head_size = self.num_attention_heads * self.attention_head_size
-        
-        #LoRA
+        print("config",config)
         if config.apply_lora:
             self.query = lora.Linear(config.hidden_size, self.all_head_size, config.lora_r, lora_alpha=config.lora_alpha)
             self.value = lora.Linear(config.hidden_size, self.all_head_size, config.lora_r, lora_alpha=config.lora_alpha)
@@ -177,11 +176,6 @@ class RobertaSelfAttention(nn.Module):
             self.value = nn.Linear(config.hidden_size, self.all_head_size)
             self.query = nn.Linear(config.hidden_size, self.all_head_size)
         
-        #LoRA 2.0
-        if 1:
-            
-        # self.query = nn.Linear(config.hidden_size, self.all_head_size)
-
         self.key = nn.Linear(config.hidden_size, self.all_head_size)
         # self.value = nn.Linear(config.hidden_size, self.all_head_size)
 

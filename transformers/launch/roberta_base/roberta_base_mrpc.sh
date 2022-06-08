@@ -1,6 +1,6 @@
 #! /bin/bash
-# export num_gpus=2
-export CUDA_VISIBLE_DEVICES=3
+export num_gpus=8
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export CUBLAS_WORKSPACE_CONFIG=":16:8" # https://docs.nvidia.com/cuda/cublas/index.html#cublasApi_reproducibility
 export PYTHONHASHSEED=0
 
@@ -58,7 +58,7 @@ eval_strategy="epoch"
 #     debug_str=".debug"
 # fi
 
-exp_name=roberta_base
+exp_name=roberta_base_finetuning
 exp_name+=.ne${num_train_epochs}
 exp_name+=.warm${warmup_ratio}.wd${weight_decay}.seed${seed}.${debug_str}
 SAVE=../../checkpoints/glue/${TASK_NAME}/${DATE}/${exp_name}
@@ -78,9 +78,9 @@ export WANDB_NOTES=" roberta_base"
 # export WANDB_MODE="dryrun"
 report_to="wandb"
 # metric="accuracy"
+# python -u \
 
-# python -m torch.distributed.launch --nproc_per_node=$num_gpus \
-python -u \
+python -m torch.distributed.launch --nproc_per_node=$num_gpus \
 ../../examples/run_glue.py \
 --output_dir ${SAVE} \
 --model_name_or_path ${model_name_or_path} \

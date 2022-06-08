@@ -1,6 +1,6 @@
 #! /bin/bash
-# export num_gpus=2
-export CUDA_VISIBLE_DEVICES=0
+export num_gpus=8
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 export CUBLAS_WORKSPACE_CONFIG=":16:8" # https://docs.nvidia.com/cuda/cublas/index.html#cublasApi_reproducibility
 export PYTHONHASHSEED=0
 
@@ -17,7 +17,7 @@ TASK_NAME=mrpc
 # metric="accuracy"
 
 bsz=16
-num_train_epochs=30
+num_train_epochs=60
 max_seq_length=512
 
 lr_scheduler_type="linear"
@@ -78,9 +78,9 @@ export WANDB_NOTES=" roberta_base"
 # export WANDB_MODE="dryrun"
 report_to="wandb"
 # metric="accuracy"
+# python -u \
 
-# python -m torch.distributed.launch --nproc_per_node=$num_gpus \
-python -u \
+python -m torch.distributed.launch --nproc_per_node=$num_gpus \
 ../../examples/run_glue.py \
 --output_dir ${SAVE} \
 --model_name_or_path ${model_name_or_path} \

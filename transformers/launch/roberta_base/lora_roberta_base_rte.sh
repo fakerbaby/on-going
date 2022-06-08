@@ -78,9 +78,9 @@ export WANDB_NOTES=" roberta_base"
 # export WANDB_MODE="dryrun"
 report_to="wandb"
 # metric="accuracy"
+# python -u \
 
-# python -m torch.distributed.launch --nproc_per_node=$num_gpus \
-python -u \
+python -m torch.distributed.launch --nproc_per_node=$num_gpus \
 ../../examples/run_glue.py \
 --output_dir ${SAVE} \
 --model_name_or_path ${model_name_or_path} \

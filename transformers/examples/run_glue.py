@@ -47,7 +47,7 @@ from transformers.utils.versions import require_version
 import torch
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
-check_min_version("4.4.0.dev0")
+check_min_version("4.18.0.dev0")
 
 require_version("datasets>=1.8.0", "To fix: pip install -r examples/pytorch/text-classification/requirements.txt")
 
@@ -355,13 +355,13 @@ def main():
         cache_dir=model_args.cache_dir,
         revision=model_args.model_revision,
         use_auth_token=True if model_args.use_auth_token else None,
-        # cls_dropout=training_args.cls_dropout,
-        # reg_loss_wgt=model_args.reg_loss_wgt,
-        # masking_prob=model_args.masking_prob,
-        #LoRA
         apply_lora=model_args.apply_lora,
         lora_alpha=model_args.lora_alpha,
         lora_r=model_args.lora_r,
+        # cls_dropout=training_args.cls_dropout,
+        # reg_loss_wgt=model_args.reg_loss_wgt,
+        # masking_prob=model_args.masking_prob,
+        # LoRA
     )
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
@@ -378,7 +378,8 @@ def main():
         revision=model_args.model_revision,
         use_auth_token=True if model_args.use_auth_token else None,
     )
-    """Adaptive model 
+    """
+    Adaptive model 
     """
     #trainable params
     trainable_params = []
@@ -392,7 +393,7 @@ def main():
     
     if len(trainable_params) > 0:
         for name, param in model.named_parameters():
-            if name.startswith('deberta') or name.startswith('roberta'):
+            if name.startswith('deberta') or name.startswith('roberta') or name.startswith('bert'):
                 param.requires_grad = False
                 for trainable_param in trainable_params:
                     if trainable_param in name:
@@ -406,8 +407,6 @@ def main():
     # for name, para in model.named_parameters ():
     #     model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
     
-    
-
     # Preprocessing the raw_datasets
     if data_args.task_name is not None:
         sentence1_key, sentence2_key = task_to_keys[data_args.task_name]
