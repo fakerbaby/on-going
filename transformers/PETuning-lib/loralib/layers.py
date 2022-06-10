@@ -177,11 +177,9 @@ class SparseLoRA(nn.Linear, LoRALayer):
         self.fan_in_fan_out = fan_in_fan_out
         # Actual trainable parameters
         if r > 0:
-            # Add Attnetion
+            # 
             self.lora_A = nn.Parameter(self.weight.new_zeros((r, in_features)))
             self.lora_B = nn.Parameter(self.weight.new_zeros((out_features, r)))
-            # self.sparse_Lora_A = nn.Parameter(self.weight.new_zeros((r, in_features)))
-            # self.sparse_Lora_B = nn.Parameter(self.weight.new_zeros((out_features, r)))
             
             self.scaling = self.lora_alpha / self.r
             # Freezing the pre-trained weight matrix
@@ -189,7 +187,7 @@ class SparseLoRA(nn.Linear, LoRALayer):
         self.reset_parameters()
         if fan_in_fan_out:
             self.weight.data = self.weight.data.T
-
+    
     def reset_parameters(self):
         nn.Linear.reset_parameters(self)
         if hasattr(self, 'lora_A'):

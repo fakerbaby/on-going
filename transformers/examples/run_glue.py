@@ -403,9 +403,9 @@ def main():
                 param.requires_grad = True
 
     # # nosiytune
-    noise_lambda = 0.2
-    for name, para in model.named_parameters ():
-        model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
+    # noise_lambda = 0.15
+    # for name, para in model.named_parameters ():
+    #     model.state_dict()[name][:] += (torch.rand(para.size())-0.5) * noise_lambda * torch.std(para)
     
     # Preprocessing the raw_datasets
     if data_args.task_name is not None:
