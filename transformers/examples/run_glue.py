@@ -189,6 +189,10 @@ class ModelArguments:
         default=False,
         metadata={"help": "Whether to apply LoRA or not."},
     )
+    apply_conv: Optional[bool] = field(
+        default=False,
+        metadata={"help": "Whether to apply conv LoRA or not"}
+    )
     lora_alpha: Optional[int] = field(
         default=None,
         metadata={"help": "LoRA alpha"},
@@ -359,6 +363,7 @@ def main():
         # reg_loss_wgt=model_args.reg_loss_wgt,
         # masking_prob=model_args.masking_prob,
         #LoRA
+        apply_conv=model_args.apply_conv,
         apply_lora=model_args.apply_lora,
         lora_alpha=model_args.lora_alpha,
         lora_r=model_args.lora_r,

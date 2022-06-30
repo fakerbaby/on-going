@@ -137,6 +137,7 @@ class BertConfig(PretrainedConfig):
         use_cache=True,
         classifier_dropout=None,
         apply_lora=False,
+        apply_conv=False,
         lora_alpha=None,
         lora_r=None,
         **kwargs
@@ -159,6 +160,7 @@ class BertConfig(PretrainedConfig):
         self.use_cache = use_cache
         self.classifier_dropout = classifier_dropout
         self.apply_lora = apply_lora
+        self.apply_conv = apply_conv
         self.lora_alpha = lora_alpha
         self.lora_r = lora_r
 
